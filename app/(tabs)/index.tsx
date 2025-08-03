@@ -1,4 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
+import { router } from "expo-router";
 import React, { useState } from "react";
 import { Alert, FlatList, StyleSheet, View } from "react-native";
 import "react-native-get-random-values";
@@ -86,7 +87,19 @@ export default function HomeScreen() {
       )}
     >
       <Animated.View>
-        <Card style={styles.card}>
+        <Card
+          style={styles.card}
+          onPress={() =>
+            router.push({
+              pathname: "/book/[id]",
+              params: {
+                id: item.id,
+                title: encodeURIComponent(item.title),
+                author: encodeURIComponent(item.author),
+              },
+            })
+          }
+        >
           <Card.Title
             title={item.title}
             subtitle={item.author}
@@ -160,6 +173,7 @@ const styles = StyleSheet.create({
   button: {
     marginBottom: 16,
     borderRadius: 8,
+    backgroundColor: "green",
   },
   card: {
     marginBottom: 8,
